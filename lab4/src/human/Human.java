@@ -16,4 +16,7 @@ public abstract class Human {
             return new Man(name, pnr);
         }
     }
+
+    private Human(){}
+
 }
