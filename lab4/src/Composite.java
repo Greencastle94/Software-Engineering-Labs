@@ -41,5 +41,6 @@ public class Composite extends Component implements Iterable {
 
     public void remove(Component c) { comps.remove(c); }
 
-    private Component getChild(int i) { return comps.get(i); }
+    public Component getChild(int i) { return comps.get(i); }
+
 }
