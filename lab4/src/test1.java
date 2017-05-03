@@ -1,3 +1,4 @@
+import java.util.Iterator;
 
 public class test1 {
     public static void main(String[] args) {
@@ -24,9 +25,14 @@ public class test1 {
         bag2.add(new Leaf("Toothbrush", 30));
 
         // Print out the total weight of the suitcase
-        System.out.println(suitcase.getWeight() + " g");
-        System.out.println();
+        //System.out.println(suitcase.getWeight() + " g");
+        //System.out.println();
         // Print out the items in the suitcase
-        System.out.println(suitcase.toString());
+        //System.out.println(suitcase.toString());
+
+        Iterator scIter = suitcase.iterator();
+        while (scIter.hasNext()) {
+            System.out.println(scIter.next());
+        }
     }
 }

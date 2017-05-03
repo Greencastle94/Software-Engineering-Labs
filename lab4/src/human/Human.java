@@ -17,6 +17,6 @@ public abstract class Human {
         }
     }
 
-    private Human(){}
+    Human(){}
 
 }

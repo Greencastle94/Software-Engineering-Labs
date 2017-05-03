@@ -9,8 +9,8 @@ public class Composite extends Component implements Iterable {
     }
 
     public Iterator iterator(){
-        return new BreadthFirstIterator(this);
-        //return new DepthFirstIterator(this);
+        //return new BFIterator(this);
+        return new DFIterator(this);
     }
 
     public int getWeight() {
@@ -42,5 +42,9 @@ public class Composite extends Component implements Iterable {
     public void remove(Component c) { comps.remove(c); }
 
     public Component getChild(int i) { return comps.get(i); }
+
+    public int howManyChildren () {
+        return comps.size();
+    }
 
 }

@@ -16,5 +16,9 @@ public abstract class Component {
 
     public int getDepth(){ return depth; }
 
+    public String getStr() {
+        return str;
+    }
+
     public abstract String toString();
 }
