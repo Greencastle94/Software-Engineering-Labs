@@ -4,6 +4,7 @@ public class test1 {
         Composite suitcase = new Composite("Suitcase", 700);
         Composite bag = new Composite("Bag", 200);
         Composite bag2 = new Composite("Bag 2", 200);
+        Composite bag3 = new Composite("Bag 3", 200);
         Composite smallPlasticBag = new Composite("Small plastic bag", 10);
 
         // Packing the suitcase
@@ -22,6 +23,10 @@ public class test1 {
         bag2.add(new Leaf("Soap", 150));
         bag2.add(new Leaf("Schampoo", 150));
         bag2.add(new Leaf("Toothbrush", 30));
+        suitcase.add(bag3);
+        bag3.add(new Leaf("Soap", 150));
+        bag3.add(new Leaf("Schampoo", 150));
+        bag3.add(new Leaf("Toothbrush", 30));
 
         // Print out the total weight of the suitcase
         System.out.println(suitcase.getWeight() + " g");
