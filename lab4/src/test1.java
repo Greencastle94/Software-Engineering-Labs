@@ -32,7 +32,8 @@ public class test1 {
 
         Iterator scIter = suitcase.iterator();
         while (scIter.hasNext()) {
-            System.out.println(scIter.next());
+            Component comp = scIter.next();
+            System.out.println(comp.getStr());
         }
     }
 }

@@ -2,8 +2,8 @@ import java.util.Iterator;
 import java.util.Stack;
 
 class DFIterator implements Iterator {
-    private Stack<Component> stack;
-    DepthFirstIterator(Composite c) {
+    private Stack<Component> stack = new Stack();
+    DFIterator(Composite c) {
         DF(c);
     }
 
@@ -17,11 +17,7 @@ class DFIterator implements Iterator {
         }
     }
 
-    public Component next() {
-        return stack.pop();
-    }
+    public Component next() { return stack.pop(); }
 
-    public boolean hasNext() {
-        return !stack.isEmpty();
-    }
+    public boolean hasNext() { return !stack.isEmpty(); }
 }
