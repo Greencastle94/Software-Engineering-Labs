@@ -1,10 +1,16 @@
-import java.util.ArrayList;
+import java.util.*;
+import java.util.Iterator;
 
-public class Composite extends Component {
+public class Composite extends Component implements Iterable {
     private ArrayList<Component> comps = new ArrayList<Component>();
 
     Composite(String s, int w) {
         super(s, w);
+    }
+
+    public Iterator iterator(){
+        return new BreadthFirstIterator(this);
+        //return new DepthFirstIterator(this);
     }
 
     public int getWeight() {
@@ -33,11 +39,7 @@ public class Composite extends Component {
         comps.add(c);
     }
 
-    public void remove(Component c) {
-        comps.remove(c);
-    }
+    public void remove(Component c) { comps.remove(c); }
 
-    private Component getChild(int i) {
-        return comps.get(i);
-    }
+    private Component getChild(int i) { return comps.get(i); }
 }

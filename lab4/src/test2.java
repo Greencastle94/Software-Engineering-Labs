@@ -10,7 +10,7 @@ public class test2 {
         System.out.println(magnus);
 
         // Alla nedan ska ge kompileringsfel
-        Human h = new Human(){};   // Skapar ett objekt av subklass till Human, klasskroppen är tom
+        //Human h = new Human(){};   // Skapar ett objekt av subklass till Human, klasskroppen är tom
         //Man m = new Man("Ska inte funka!", "xxxxxx-642x");
         //Woman w = new Woman("Ska inte funka!", "xxxxxx-641x");
         //NonBinary nb = new NonBinary("Ska inte funka!", "xxxxxx-640x");

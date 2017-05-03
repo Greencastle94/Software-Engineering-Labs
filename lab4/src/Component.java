@@ -12,13 +12,9 @@ public abstract class Component {
 
     public abstract int getWeight();
 
-    public void setDepth(int d){
-        depth = d;
-    }
+    public void setDepth(int d){ depth = d; }
 
-    public int getDepth(){
-        return depth;
-    }
+    public int getDepth(){ return depth; }
 
     public abstract String toString();
 }

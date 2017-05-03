@@ -4,11 +4,7 @@ public class Leaf extends Component {
         super(s, w);
     }
 
-    public int getWeight() {
-        return weight;
-    }
+    public int getWeight() { return weight; }
 
-    public String toString() {
-        return str;
-    }
+    public String toString() { return str; }
 }
