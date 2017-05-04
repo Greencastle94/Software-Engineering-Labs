@@ -1,14 +1,14 @@
 import java.util.Iterator;
-import java.util.Stack;
+import java.util.LinkedList;
 
 class DFIterator implements Iterator {
-    private Stack<Component> stack = new Stack();
+    private LinkedList<Component> l = new LinkedList();
     DFIterator(Composite c) {
         DF(c);
     }
 
     private void DF(Component c) {
-        stack.push(c);
+        l.add(c);
 
         if (c instanceof Composite) {
             for (int i = 0; i < ((Composite) c).howManyChildren(); i++) {
@@ -17,7 +17,7 @@ class DFIterator implements Iterator {
         }
     }
 
-    public Component next() { return stack.pop(); }
+    public Component next() { return l.pollFirst(); }
 
-    public boolean hasNext() { return !stack.isEmpty(); }
+    public boolean hasNext() { return !l.isEmpty(); }
 }

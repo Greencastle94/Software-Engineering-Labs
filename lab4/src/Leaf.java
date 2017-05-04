@@ -1,5 +1,5 @@
-
 public class Leaf extends Component {
+
     Leaf(String s, int w) {
         super(s, w);
     }
