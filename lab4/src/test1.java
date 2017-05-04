@@ -25,10 +25,11 @@ public class test1 {
         bag2.add(new Leaf("3. Toothbrush", 30));
 
         // Print out the total weight of the suitcase
-        //System.out.println(suitcase.getWeight() + " g");
-        //System.out.println();
+        System.out.println(suitcase.getWeight() + " g");
+        System.out.println();
         // Print out the items in the suitcase
-        //System.out.println(suitcase.toString());
+        System.out.println(suitcase.toString());
+        System.out.println();
 
         Iterator scIter = suitcase.iterator();
         while (scIter.hasNext()) {
