@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.Scanner;
 
 public class LifeTree extends TreeFrame{
+    private static Scanner sc;
     //Override
     // ***** create root, treeModel and tree in the new initTree
     void initTree(){
@@ -15,26 +16,30 @@ public class LifeTree extends TreeFrame{
     }
 
     private void buildTree() {
-        for(String name : nameList) {
-            DefaultMutableTreeNode child = new DefaultMutableTreeNode(name);
-            root.add(child);
-        }
+
+//        for(String name : nameList) {
+//            DefaultMutableTreeNode child = new DefaultMutableTreeNode(name);
+//            root.add(child);
+//        }
     }
 
     public static void main (String[] args){
         // Running the file with or without argument
         try {
             if(args.length>0) {
-                    Scanner sc = new Scanner(new File("../xml/" + args + ".xml"));
+                sc = new Scanner(new File(System.getProperty("user.dir") + "\\xml\\" + args[0] + ".txt"));
             }
             else {
-                Scanner sc = new Scanner(new File("../xml/Life.xml"));
+                sc = new Scanner(new File(System.getProperty("user.dir") + "\\xml\\Life.txt"));
             }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        // Instantiating the tree
+        // Get rid of first line in the XML file
+        sc.nextLine();
+
+        // Instantiating a tree
         new LifeTree();
     }
 
