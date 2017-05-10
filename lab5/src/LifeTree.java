@@ -22,13 +22,19 @@ public class LifeTree extends TreeFrame{
     }
 
     public static void main (String[] args){
-        if(args.length>0) {
-            try {
-                Scanner sc = new Scanner(new File("infil.txt"));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+        // Running the file with or without argument
+        try {
+            if(args.length>0) {
+                    Scanner sc = new Scanner(new File("../xml/" + args + ".xml"));
+            }
+            else {
+                Scanner sc = new Scanner(new File("../xml/Life.xml"));
             }
         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        // Instantiating the tree
         new LifeTree();
     }
 
