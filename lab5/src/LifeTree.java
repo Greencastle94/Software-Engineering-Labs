@@ -9,8 +9,6 @@ import javax.swing.tree.TreePath;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 
 public class LifeTree extends TreeFrame {
@@ -98,7 +96,10 @@ public class LifeTree extends TreeFrame {
         if (XMLTree.hasChildNodes())
             buildTree(XMLTree.getChildNodes());
 
+        tree.setBackground(Color.GREEN);
+
     }
+
 
     void showDetails(TreePath p){
         if ( p == null )
