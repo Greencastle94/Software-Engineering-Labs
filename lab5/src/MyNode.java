@@ -4,8 +4,8 @@ public class MyNode extends DefaultMutableTreeNode {
     private String level;
     private String text;
 
-    MyNode(String lvl, String txt) {
-        super();
+    MyNode(String n, String lvl, String txt) {
+        super(n);
         level = lvl;
         text = txt;
     }
