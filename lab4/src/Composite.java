@@ -9,8 +9,8 @@ public class Composite extends Component implements Iterable {
     }
 
     public Iterator iterator(){
-        //return new BFIterator(this);
-        return new DFIterator(this);
+        return new BFIterator(this);
+        //return new DFIterator(this);
     }
 
     public int getWeight() {
