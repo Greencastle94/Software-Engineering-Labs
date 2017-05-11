@@ -1,3 +1,5 @@
+// Lucas Grönborg & Rickard Björklund
+
 package human;
 
 class Man extends Human {

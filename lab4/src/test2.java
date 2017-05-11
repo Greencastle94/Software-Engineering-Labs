@@ -1,3 +1,5 @@
+// Lucas Grönborg & Rickard Björklund
+
 import human.*;
 
 public class test2 {

@@ -1,4 +1,4 @@
-
+// Lucas Grönborg & Rickard Björklund
 
 public abstract class Component {
     protected String str;

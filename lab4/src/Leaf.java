@@ -1,3 +1,5 @@
+// Lucas Grönborg & Rickard Björklund
+
 public class Leaf extends Component {
 
     Leaf(String s, int w) {

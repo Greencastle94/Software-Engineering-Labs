@@ -1,3 +1,5 @@
+// Lucas Grönborg & Rickard Björklund
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
