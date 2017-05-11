@@ -1,28 +1,19 @@
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class MyNode extends DefaultMutableTreeNode {
+    private String name;
+    private String textContent;
     private String level;
-    private String text;
 
-    MyNode(String lvl, String txt) {
-        super();
-        level = lvl;
-        text = txt;
+    MyNode(String name, String textContent, String level) {
+        super(name);
+        this.name = name;
+        this.textContent = textContent;
+        this.level = level;
     }
 
-    public void setText(String txt) {
-        text = txt;
+    public String getInfo() {
+        return level + ": " + name + "\n" + textContent;
     }
 
-    public void setLevel(String lvl) {
-        level = lvl;
-    }
-
-    public String getLvl() {
-        return level;
-    }
-
-    public String getTxt() {
-        return text;
-    }
 }
