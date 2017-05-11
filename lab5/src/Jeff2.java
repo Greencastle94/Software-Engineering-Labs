@@ -86,7 +86,7 @@ public class Jeff2 extends TreeFrame {
 
     void initTree() {
         // Creating and retrieving XML tree structure
-        String path = "C:\\Users\\Rickard\\Desktop\\gitTest\\pruttLabbar\\lab5\\xml\\liv.xml";
+        String path = System.getProperty("user.dir") + "\\xml\\liv.xml";
         Document XMLTree = retrieveXMLTree(path);
 
         if (XMLTree.hasChildNodes())

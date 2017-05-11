@@ -1,57 +1,119 @@
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.Scanner;
 
-public class LifeTree extends TreeFrame{
-    private static Scanner sc;
-    //Override
-    // ***** create root, treeModel and tree in the new initTree
-    void initTree(){
-        root = new DefaultMutableTreeNode("Liv");
-        treeModel = new DefaultTreeModel(root);
-        tree = new JTree(treeModel);
-        buildTree();
-    }
+public class LifeTree extends TreeFrame {
 
-    private void buildTree() {
-        String line = sc.nextLine();
-        System.out.println(line);
-        int index1 = line.indexOf("=")+1;
-        int index2 = line.indexOf(">");
-        // Name of attribute
-        String attr = line.substring(index1+1, index2-1);
-        //System.out.println(attr);
-        // Text line for attribute
-        String text = line.substring(index2+1);
-        //System.out.println(text);
+    MyNode root;
+    static String file;
 
-
-//        for(String name : nameList) {
-//            DefaultMutableTreeNode child = new DefaultMutableTreeNode(name);
-//            root.add(child);
-//        }
-    }
-
-    public static void main (String[] args){
-        // Running the file with or without argument
+    Document retrieveXMLTree(String path){
         try {
-            if(args.length>0) {
-                sc = new Scanner(new File(System.getProperty("user.dir") + "\\xml\\" + args[0] + ".txt"));
-            }
-            else {
-                sc = new Scanner(new File(System.getProperty("user.dir") + "\\xml\\TinyLife.txt"));
-            }
-        }
-        catch (Exception e) {
+            File file = new File(path);
+            DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc = dBuilder.parse(file);
+            return doc;
+        } catch (Exception e) {
             System.out.println(e.getMessage());
+            return null;
         }
-        // Get rid of meta line in the XML file
-        //System.out.println(sc.nextLine());
+    }
 
-        // Instantiating a tree
+    void buildTree(NodeList nodeList, MyNode parent) {
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node tempNode = nodeList.item(i);
+
+            if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                // Getting the name of the root node
+                String XMLNodeLevel = tempNode.getNodeName();
+
+                // Getting the text content of the root node
+                String XMLRootTextContent = tempNode.getTextContent();
+                String[] parts = XMLRootTextContent.split("\n");
+                String XMLNodeText = parts[0];
+
+                // Getting the atrribute of the root node
+                String XMLNodeAttribute = "";
+                if (tempNode.hasAttributes()) {
+                    Element e = (Element) tempNode;
+                    XMLNodeAttribute = e.getAttribute("namn");
+                }
+
+                MyNode child = new MyNode(XMLNodeAttribute, XMLNodeText, XMLNodeLevel);
+                parent.add(child);
+
+                if (tempNode.hasChildNodes())
+                    buildTree(tempNode.getChildNodes(), child);
+            }
+
+        }
+
+    }
+
+    void buildTree(NodeList rootNode) {
+        Node XMLroot = rootNode.item(0);
+        // Getting the name of the root node
+        String XMLRootLevel = XMLroot.getNodeName();
+
+        // Getting the text content of the root node
+        String XMLRootTextContent = XMLroot.getTextContent();
+        String[] parts = XMLRootTextContent.split("\n");
+        String XMLRootText = parts[0];
+
+        // Getting the atrribute of the root node
+        String XMLRootAttribute = "";
+        if (XMLroot.hasAttributes()){
+            Element e = (Element)XMLroot;
+            XMLRootAttribute = e.getAttribute("namn");
+        }
+
+        root = new MyNode(XMLRootAttribute, XMLRootText, XMLRootLevel);
+        treeModel = new DefaultTreeModel( root );
+        tree = new JTree( treeModel );
+
+        if (XMLroot.hasChildNodes())
+            buildTree(XMLroot.getChildNodes(), root);
+
+    }
+
+    void initTree() {
+        // Creating and retrieving XML tree structure
+        String path = System.getProperty("user.dir") + "\\xml\\liv.xml";
+        if (file != null)
+            path = System.getProperty("user.dir") + "\\xml\\" + file + ".xml";
+        Document XMLTree = retrieveXMLTree(path);
+
+        if (XMLTree.hasChildNodes())
+            buildTree(XMLTree.getChildNodes());
+
+    }
+
+    void showDetails(TreePath p){
+        if ( p == null )
+            return;
+        MyNode node = (MyNode)p.getLastPathComponent();
+        String info = node.getInfo();
+        JOptionPane.showMessageDialog(this, info);
+    }
+
+    public static void main(String[] args) {
+        if (args.length > 0)
+            file = args[0];
+
         new LifeTree();
+
     }
 
 }
