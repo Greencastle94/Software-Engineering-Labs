@@ -20,7 +20,7 @@ public class WebLinks extends JFrame{
             InputStream in = new URL(webpage).openConnection().getInputStream();
             InputStreamReader reader = new InputStreamReader(in);
             while (reader.ready()) {
-                System.out.print((char) reader.read();
+                System.out.print((char) reader.read());
                 doc.putProperty("IgnoreCharsetDirective", Boolean.TRUE);
                 new HTMLEditorKit().read(reader,doc,0);
             }

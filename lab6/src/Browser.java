@@ -29,7 +29,7 @@ public class Browser extends JFrame{
         });
 
         webreader = new Webreader();
-        webreader.showPage("http://www.nada.kth.se/~vahid");
+        webreader.showPage("http://www.nada.kth.se/~johanh");
         screen = new JScrollPane(webreader);
 
         table = new JTable(50, 2);
