@@ -23,7 +23,6 @@ public class Browser extends JFrame{
     private Webreader webreader;
     private JScrollPane screen;
 
-    private JTable table;
     private JScrollPane links;
     private String[] header = {"Adress", "Description"};
 
