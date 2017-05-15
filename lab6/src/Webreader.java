@@ -1,3 +1,4 @@
+// Rickard Björklund och Lucas Grönborg
 import javax.swing.*;
 import java.io.IOException;
 
