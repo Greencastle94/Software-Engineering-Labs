@@ -7,14 +7,14 @@ import javax.swing.text.html.*;
 import javax.swing.text.*;
 
 public class WebLinks extends JFrame{
+    //String webpage="http://www.nada.kth.se/~johanh";
+    private HTMLDocument htmlDoc = new HTMLDocument();
 
-    public JTable getLinksTable(String webpage){
-        //String webpage="http://www.nada.kth.se/~johanh";
+    private String[][] data = new String[50][2];
+
+    private String[][] getLinksTable(String webpage){
         HTMLDocument htmlDoc = new HTMLDocument();
-
-        String[] columnNames = {"Adress",
-                                "Description"};
-        Object[][] data = new Object[50][2];
+        String[][] data = new String[50][2];
 
         try {
             InputStream in = new URL(webpage).openConnection().getInputStream();
@@ -37,7 +37,7 @@ public class WebLinks extends JFrame{
                     int endOffset = iterator.getEndOffset();
                     int length = endOffset - startOffset;
                     String text = htmlDoc.getText(startOffset, length);
-                    data[i][1] = srcString;
+                    data[i][1] = text;
                     i++;
                     //System.out.println(" - " + text);
                 }
@@ -46,5 +46,6 @@ public class WebLinks extends JFrame{
         catch(Exception e) {
             System.out.println(e.getMessage());
         }
+        return data;
     }
 }
