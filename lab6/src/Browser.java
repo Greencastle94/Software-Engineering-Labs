@@ -1,13 +1,19 @@
+// Rickard Björklund och Lucas Grönborg
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Browser extends JFrame{
 
     JTextField url;
-    JEditorPane screen;
+
+    Webreader webreader;
+    JScrollPane screen;
+
     JTable table;
     JScrollPane links;
 
@@ -16,7 +22,15 @@ public class Browser extends JFrame{
         Container c = getContentPane();
 
         url = new JTextField(30);
-        screen = new JEditorPane();
+        url.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                webreader.showPage(url.getText());
+            }
+        });
+
+        webreader = new Webreader();
+        webreader.showPage("http://www.nada.kth.se/~vahid");
+        screen = new JScrollPane(webreader);
 
         table = new JTable(50, 2);
         JTableHeader tableHeader = table.getTableHeader();
