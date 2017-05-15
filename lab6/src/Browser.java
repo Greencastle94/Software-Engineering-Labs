@@ -76,9 +76,7 @@ public class Browser extends JFrame{
 
                 int i = 0;
                 for (HTMLDocument.Iterator iterator = htmlDoc.getIterator(HTML.Tag.A); iterator.isValid(); iterator.next()) {
-                    if(i > 50) {
-                        break;
-                    }
+                    if(i > 50) break;
                     AttributeSet attributes = iterator.getAttributes();
                     String srcString = (String) attributes.getAttribute(HTML.Attribute.HREF);
                     data[i][0] = srcString;
