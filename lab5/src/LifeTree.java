@@ -1,3 +1,4 @@
+// Rickard Björklund och Lucas Grönborg
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -99,7 +100,6 @@ public class LifeTree extends TreeFrame {
         tree.setBackground(Color.GREEN);
 
     }
-
 
     void showDetails(TreePath p){
         if ( p == null )
