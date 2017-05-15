@@ -1,9 +1,9 @@
 // Rickard Björklund & Lucas Grönborg
 
-public class MainSlidePuzzle {
+public class Game {
     public static void main(String[] args) {
-        Boardgame go = new FifteenModel();
-        ViewControll g = new ViewControll("Slide Puzzle", 4, go);
+        Boardgame go = new TTTModel();
+        ViewControl g = new ViewControl("Slide Puzzle", 3, go);
         g.setVisible(true);
         g.setSize(500, 500);
     }

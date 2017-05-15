@@ -9,29 +9,25 @@ import java.net.Socket;
 // HOST: "share-02.csc.kth.se"
 // PORT: 4713
 
-public class GraphicClient {
+public class Client {
     private BufferedReader in;
     private PrintWriter out;
     // Constructor
-    GraphicClient (String host, int port){
+    Client (String host, int port){
         try {
             Socket socket = new Socket(host, port);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream());
-
-            out.println("Charlotta");
-            out.flush();
-            System.out.println(in.readLine());
         } catch (IOException e){
             e.getMessage();
         }
     }
     // Constructor with no parameters
-    GraphicClient () {
+    Client () {
         this("share-02.csc.kth.se", 4713);
     }
 
-    public synchronized String getComputerMove (String playerMove){
+    public synchronized String getOpponentMove (String playerMove){
         try {
             out.println(playerMove);   // Storing user input in socketOut buffer
             out.flush();               // Sending user input to server

@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class ViewControll extends JFrame implements ActionListener{
+public class ViewControl extends JFrame implements ActionListener{
 
     private final int ROWS;
     private final int COLS;
@@ -17,7 +17,7 @@ public class ViewControll extends JFrame implements ActionListener{
 
     private JLabel mess = new JLabel();
 
-    public ViewControll(String gn, int gs, Boardgame go){
+    public ViewControl(String gn, int gs, Boardgame go){
 
         super(gn);
 
