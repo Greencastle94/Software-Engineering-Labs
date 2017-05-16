@@ -33,7 +33,7 @@ public class Browser extends JFrame{
         webreader = new Webreader();
         screen = new JScrollPane(webreader);
 
-        table = new JTable(50,2);
+        JTable table = new JTable(50,2);
         JTableHeader tableHeader = table.getTableHeader();
         TableColumnModel tcm = tableHeader.getColumnModel();
         TableColumn tc1 = tcm.getColumn(0);
