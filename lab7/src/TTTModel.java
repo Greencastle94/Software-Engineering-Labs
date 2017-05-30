@@ -1,3 +1,12 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
 public class TTTModel implements Boardgame{
     private int ROWS = 3;
     private int COLS = 3;
@@ -14,12 +23,74 @@ public class TTTModel implements Boardgame{
 
     private String currentMessage = "Player " + player + "'s turn";
 
+    // Server/Client
+    private String ip;
+    private int port;
+    private BufferedReader in;
+    private PrintWriter out;
+    private Socket socket;
+    private ServerSocket serverSocket;
+
     public TTTModel() {
+        //Instanciate a window for connection
+        // Taking in IP and port for connection
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input the IP: ");
+        ip = sc.nextLine();
+        System.out.println("Please input the port: ");
+        port = sc.nextInt();
+        while (port < 1 || port > 65535) {
+            System.out.println("The port you entered was invalid, please input another port: ");
+            port = sc.nextInt();
+        }
+
+        // If it can't connect there is no server, starts one then
+        if (!connect()) initializeServer();
+
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
                 board[r][c] = "";
             }
         }
+    }
+
+     /*
+    private void listenForServerRequest() {
+        Socket socket = null;
+        try {
+            socket = serverSocket.accept();
+            dos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+            accepted = true;
+            System.out.println("CLIENT HAS REQUESTED TO JOIN, AND WE HAVE ACCEPTED");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    */
+
+    private boolean connect() {
+        try {
+            socket = new Socket(ip, port);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream());
+            //accepted = true;
+        } catch (IOException e) {
+            System.out.println("Unable to connect to the address: " + ip + ":" + port + " | Starting a server");
+            return false;
+        }
+        System.out.println("Successfully connected to the server.");
+        return true;
+    }
+
+    private void initializeServer() {
+        try {
+            serverSocket = new ServerSocket(port, 8, InetAddress.getByName(ip));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //yourTurn = true;
+        //circle = false;
     }
 
     public boolean move(int r, int c){
