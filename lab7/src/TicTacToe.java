@@ -180,8 +180,8 @@ public class TicTacToe extends Thread {
             in = new DataInputStream(socket.getInputStream());
             accepted = true;
 
-            player = p1;
-            opponent = p2;
+            player = p2;
+            opponent = p1;
         } catch (IOException e) {
             System.out.println("Unable to connect to the address: " + ip + ":" + port + " | Starting a server");
             return false;
