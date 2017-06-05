@@ -30,7 +30,7 @@ public class TicTacToe extends Thread {
     private int cR;
     private int cC;
 
-    private String currentMessage = "Player " + player + "'s turn";
+    private String currentMessage = "Player X's turn";
     private int[] move = new int[2]; // Variable for saving the move
 
     // Server || Client
@@ -119,6 +119,7 @@ public class TicTacToe extends Thread {
         if (!yourTurn) {
             try {
                 int moveNum = in.readInt();
+                System.out.println("DATA WAS RECIEVED!");
                 // Translating moveNum to (x,y) in board
                 int r = (int)Math.floor(moveNum/10);
                 int c = moveNum%10;
