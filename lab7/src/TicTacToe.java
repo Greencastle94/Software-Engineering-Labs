@@ -109,6 +109,11 @@ public class TicTacToe extends Thread {
     //  Game Loop
     public void run() {
         while (true) {
+            try {
+                this.sleep(10);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             opponentMove();  // Get the opponent move
         }
     }
@@ -118,8 +123,9 @@ public class TicTacToe extends Thread {
     private void opponentMove() {
         if (!yourTurn) {
             try {
+                //System.out.println("WAITING FOR DATA...");
                 int moveNum = in.readInt();
-                System.out.println("DATA WAS RECIEVED!");
+                System.out.println("DATA WAS RECEIVED!");
                 // Translating moveNum to (x,y) in board
                 int r = (int)Math.floor(moveNum/10);
                 int c = moveNum%10;
@@ -133,8 +139,6 @@ public class TicTacToe extends Thread {
                 }
                 switchPlayer();
                 updateView();
-                //checkForEnemyWin();
-                //checkForTie();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -156,7 +160,6 @@ public class TicTacToe extends Thread {
                     }
                 }
             }
-            // Toolkit.getDefaultToolkit().sync();
 
             try {
                 // Translating move to moveNum
@@ -168,8 +171,6 @@ public class TicTacToe extends Thread {
             }
 
             System.out.println("DATA WAS SENT");
-            //checkForWin();
-            //checkForTie();
         }
     }
 
