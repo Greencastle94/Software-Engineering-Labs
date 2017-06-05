@@ -187,7 +187,7 @@ public class TicTacToe extends Thread {
             return false;
         }
         System.out.println("Successfully connected to the server.");
-        System.out.println("You are player O!");
+        System.out.println("You are player " + player + "!");
         return true;
     }
 
@@ -209,7 +209,7 @@ public class TicTacToe extends Thread {
             in = new DataInputStream(socket.getInputStream());
             accepted = true;
             System.out.println("CLIENT HAS REQUESTED TO JOIN, AND WE HAVE ACCEPTED");
-            System.out.println("You are player X!");
+            System.out.println("You are player " + player + "!");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -294,6 +294,7 @@ public class TicTacToe extends Thread {
         else {
             currentMessage = "Player X's turn";
         }
+        System.out.println("SWITCHED PLAYER!");
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
