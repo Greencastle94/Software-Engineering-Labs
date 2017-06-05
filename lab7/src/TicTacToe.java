@@ -64,6 +64,10 @@ public class TicTacToe extends Thread {
             initializeServer();
             System.out.println("Waiting for another player to connect... ");
         }
+        else {
+            player = p2;
+            opponent = p1;
+        }
 
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
@@ -141,6 +145,10 @@ public class TicTacToe extends Thread {
             out = new DataOutputStream(socket.getOutputStream());
             in = new DataInputStream(socket.getInputStream());
             accepted = true;
+
+            player = p1;
+            opponent = p2;
+            yourTurn = false;
         } catch (IOException e) {
             System.out.println("Unable to connect to the address: " + ip + ":" + port + " | Starting a server");
             return false;
