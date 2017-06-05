@@ -24,7 +24,7 @@ public class TicTacToe extends Thread {
     private String p2 = "O";
     private String player;          // Which player you are
     private String opponent;        // What opponent you have
-    private boolean yourTurn;       // Whose turn
+    private boolean yourTurn = false;       // Whose turn
     private int turn = 1;           // What turn
     private boolean choice = true;  // If it is the choice move
     private int cR;
@@ -148,12 +148,12 @@ public class TicTacToe extends Thread {
 
             player = p1;
             opponent = p2;
-            yourTurn = false;
         } catch (IOException e) {
             System.out.println("Unable to connect to the address: " + ip + ":" + port + " | Starting a server");
             return false;
         }
         System.out.println("Successfully connected to the server.");
+        System.out.println("You are player O!");
         return true;
     }
 
@@ -175,6 +175,7 @@ public class TicTacToe extends Thread {
             in = new DataInputStream(socket.getInputStream());
             accepted = true;
             System.out.println("CLIENT HAS REQUESTED TO JOIN, AND WE HAVE ACCEPTED");
+            System.out.println("You are player X!");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -231,8 +232,12 @@ public class TicTacToe extends Thread {
             else {
                 board[r][c] = player;
                 turn++;
-                //switchPlayer();
-                currentMessage = "Player " + player + "'s turn";
+                // Switch player
+                if (player.equals(p1))
+                    currentMessage = "Player O's turn";
+                else {
+                    currentMessage = "Player X's turn";
+                }
                 return true;
             }
         }
@@ -242,8 +247,12 @@ public class TicTacToe extends Thread {
                 board[r][c] = player;
                 board[cR][cC] = opponent;
                 turn++;
-                //switchPlayer();
-                currentMessage = "Player " + player + "'s turn";
+                // Switch player
+                if (player.equals(p1))
+                    currentMessage = "Player O's turn";
+                else {
+                    currentMessage = "Player X's turn";
+                }
                 choice = !choice;
                 return true;
             }
