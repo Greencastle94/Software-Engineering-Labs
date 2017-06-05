@@ -296,7 +296,7 @@ public class TicTacToe extends Thread {
         else {
             currentMessage = "Player " + player + "'s turn";
         }
-        System.out.println("SWITCHED PLAYER!");
+        //System.out.println("SWITCHED PLAYER!");
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
