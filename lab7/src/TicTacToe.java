@@ -131,12 +131,46 @@ public class TicTacToe extends Thread {
                     // Translate moveNum to (x,y) in board
                     board[r][c] = "O";
                 }
+                updateView();
                 //checkForEnemyWin();
                 //checkForTie();
                 yourTurn = true;
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private void playerMove(ActionEvent ae) {
+        if (yourTurn) {
+            for (int r = 0; r < ROWS; r++) {
+                for (int c = 0; c < COLS; c++) {
+                    if(buttonBoard[r][c] == ae.getSource() ) {
+                        move[0] = r;
+                        move[1] = c;
+                        if(move(r, c)){
+                            updateView();
+                        }else{
+                            mess.setText(getMessage());
+                        }
+                    }
+                }
+            }
+            yourTurn = false;
+            // Toolkit.getDefaultToolkit().sync();
+
+            try {
+                // Translating move to moveNum
+                int moveNum = (move[0]*10) + move[1];
+                out.writeInt(moveNum);
+                out.flush();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
+            System.out.println("DATA WAS SENT");
+            //checkForWin();
+            //checkForTie();
         }
     }
 
@@ -266,45 +300,12 @@ public class TicTacToe extends Thread {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // OLD VIEW CONTROLLER FUNCTIONS
-    private void refresh(){
+    private void updateView(){
         for (int r = 0; r < ROWS; r++){
             for (int c = 0; c < COLS; c++){
                 buttonBoard[r][c].setText(getStatus(r, c));
             }
         }
         mess.setText(getMessage());
-    }
-
-    private void playerMove(ActionEvent ae) {
-        if (yourTurn) {
-            for (int r = 0; r < ROWS; r++) {
-                for (int c = 0; c < COLS; c++) {
-                    if(buttonBoard[r][c] == ae.getSource() ) {
-                        move[0] = r;
-                        move[1] = c;
-                        if(move(r, c)){
-                            refresh();
-                        }else{
-                            mess.setText(getMessage());
-                        }
-                    }
-                }
-            }
-            yourTurn = false;
-            // Toolkit.getDefaultToolkit().sync();
-
-            try {
-                // Translating move to moveNum
-                int moveNum = (move[0]*10) + move[1];
-                out.writeInt(moveNum);
-                out.flush();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-
-            System.out.println("DATA WAS SENT");
-            //checkForWin();
-            //checkForTie();
-        }
     }
 }
