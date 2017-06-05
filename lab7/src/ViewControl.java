@@ -1,3 +1,4 @@
+/*
 // Rickard Björklund & Lucas Grönborg
 
 import java.awt.*;
@@ -8,61 +9,64 @@ import javax.swing.*;
 
 public class ViewControl extends JFrame implements ActionListener{
 
-    private final int ROWS;
-    private final int COLS;
+    private final int ROWS = TTTModel.getRows();
+    private final int COLS = TTTModel.getCols();
 
-    private Boardgame game;
+    private Boardgame model;
 
-    private JButton[][] board;
+    private JButton[] buttonBoard;
 
     private JLabel mess = new JLabel();
 
-    public ViewControl(String gn, int gs, Boardgame go){
-
+    public ViewControl(String gn, Boardgame m){
         super(gn);
 
-        game = go;
-
-        ROWS = gs;
-        COLS = gs;
-        board = new JButton[ROWS][COLS];
+        model = m;
+        buttonBoard = new JButton[ROWS*COLS];
 
         setLayout(new GridLayout(ROWS + 1, COLS));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        int i = 0;
         for (int r = 0; r < ROWS; r++){
             for (int c = 0; c < COLS; c++){
-                board[r][c] = new JButton(game.getStatus(r, c));
-                board[r][c].addActionListener(this);
-                add(board[r][c]);
+                buttonBoard[i] = new JButton(model.getStatus(r, c));
+                buttonBoard[i].addActionListener(this);
+                add(buttonBoard[i]);
+                i++;
             }
         }
 
-        mess.setText(game.getMessage());
+        mess.setText(model.getMessage());
         add(mess);
 
     }
 
     private void refresh(){
+        int i = 0;
         for (int r = 0; r < ROWS; r++){
             for (int c = 0; c < COLS; c++){
-                board[r][c].setText(game.getStatus(r, c));
+                buttonBoard[i].setText(model.getStatus(r, c));
+                i++;
             }
         }
-        mess.setText(game.getMessage());
+        mess.setText(model.getMessage());
     }
 
     public void actionPerformed(ActionEvent ae) {
+        int i = 0;
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
-                if(board[r][c] == ae.getSource() ) {
-                    if(game.move(r, c)){
+                if(buttonBoard[i] == ae.getSource() ) {
+                    if(model.move(r, c)){
                         refresh();
                     }else{
-                        mess.setText(game.getMessage());
+                        mess.setText(model.getMessage());
                     }
                 }
+                i++;
             }
         }
     }
 }
+*/

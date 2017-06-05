@@ -1,15 +1,15 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+/*
+// Lucas Grönborg & Rickard Björklund
+
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class TTTModel implements Boardgame{
-    private int ROWS = 3;
-    private int COLS = 3;
+    private static int ROWS = 3;
+    private static int COLS = 3;
 
     private String[][] board = new String[ROWS][COLS];
     private String p1 = "X";
@@ -23,16 +23,16 @@ public class TTTModel implements Boardgame{
 
     private String currentMessage = "Player " + player + "'s turn";
 
-    // Server/Client
+    // Server || Client
     private String ip;
     private int port;
-    private BufferedReader in;
-    private PrintWriter out;
+    private DataInputStream in;
+    private DataOutputStream out;
     private Socket socket;
     private ServerSocket serverSocket;
 
     public TTTModel() {
-        //Instanciate a window for connection
+        //Instantiate a window for connection
         // Taking in IP and port for connection
         Scanner sc = new Scanner(System.in);
         System.out.println("Please input the IP: ");
@@ -54,7 +54,8 @@ public class TTTModel implements Boardgame{
         }
     }
 
-     /*
+     */
+/*
     private void listenForServerRequest() {
         Socket socket = null;
         try {
@@ -67,7 +68,8 @@ public class TTTModel implements Boardgame{
             e.printStackTrace();
         }
     }
-    */
+    *//*
+
 
     private boolean connect() {
         try {
@@ -176,11 +178,12 @@ public class TTTModel implements Boardgame{
         }
     }
 
-    public int getRow() {
+    public static int getRows() {
         return ROWS;
     }
 
-    public int getCol() {
+    public static int getCols() {
         return COLS;
     }
 }
+*/
