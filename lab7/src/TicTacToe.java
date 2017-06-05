@@ -289,10 +289,11 @@ public class TicTacToe extends Thread {
 
     private void switchPlayer() {
         yourTurn = !yourTurn;
-        if (player.equals(p1))
-            currentMessage = "Player O's turn";
+        if (!yourTurn) {
+                currentMessage = "Player " + opponent + "'s turn";
+        }
         else {
-            currentMessage = "Player X's turn";
+            currentMessage = "Player " + player + "'s turn";
         }
         System.out.println("SWITCHED PLAYER!");
     }
