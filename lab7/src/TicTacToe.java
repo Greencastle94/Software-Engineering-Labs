@@ -131,10 +131,10 @@ public class TicTacToe extends Thread {
                     // Translate moveNum to (x,y) in board
                     board[r][c] = "O";
                 }
+                switchPlayer();
                 updateView();
                 //checkForEnemyWin();
                 //checkForTie();
-                yourTurn = true;
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -156,7 +156,6 @@ public class TicTacToe extends Thread {
                     }
                 }
             }
-            yourTurn = false;
             // Toolkit.getDefaultToolkit().sync();
 
             try {
@@ -267,12 +266,7 @@ public class TicTacToe extends Thread {
             else {
                 board[r][c] = player;
                 turn++;
-                // Switch player
-                if (player.equals(p1))
-                    currentMessage = "Player O's turn";
-                else {
-                    currentMessage = "Player X's turn";
-                }
+                switchPlayer();
                 return true;
             }
         }
@@ -282,12 +276,7 @@ public class TicTacToe extends Thread {
                 board[r][c] = player;
                 board[cR][cC] = opponent;
                 turn++;
-                // Switch player
-                if (player.equals(p1))
-                    currentMessage = "Player O's turn";
-                else {
-                    currentMessage = "Player X's turn";
-                }
+                switchPlayer();
                 choice = !choice;
                 return true;
             }
@@ -295,6 +284,15 @@ public class TicTacToe extends Thread {
                 currentMessage = "Invalid move";
                 return false;
             }
+        }
+    }
+
+    private void switchPlayer() {
+        yourTurn = !yourTurn;
+        if (player.equals(p1))
+            currentMessage = "Player O's turn";
+        else {
+            currentMessage = "Player X's turn";
         }
     }
 
