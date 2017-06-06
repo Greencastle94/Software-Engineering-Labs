@@ -22,11 +22,11 @@ public class TicTacToe extends Thread {
     private String[][] board = new String[ROWS][COLS];
     private String p1 = "X";
     private String p2 = "O";
-    private String player;          // Which player you are
-    private String opponent;        // What opponent you have
+    private String player;                  // Which player you are
+    private String opponent;                // What opponent you have
     private boolean yourTurn = false;       // Whose turn
-    private int turn = 1;           // What turn
-    private boolean choice = true;  // If it is the choice move
+    private int turn = 1;                   // What turn
+    private boolean choice = true;          // If it is the choice move
     private int cR;
     private int cC;
 
@@ -227,24 +227,22 @@ public class TicTacToe extends Thread {
     }
 
     private boolean move(int r, int c){
-        boolean succMove;
         if (turn <= ROWS*COLS) { // If turn is more than number of squares all squares have been taken.
-            succMove = tryMove(r, c);
+            return tryMove(r, c);
         }
         else {
-            if (choice) {
-                succMove = tryChoice(r, c, player);
+            boolean legitChoice = false;
+            while (!legitChoice) {
+                legitChoice = tryChoice(r, c, player);
+                updateView();
             }
-            else {
-                succMove = tryMove(r, c);
-            }
+            return tryMove(r, c);
         }
-        return succMove;
     }
 
     private boolean tryChoice(int r, int c, String p){
         if(board[r][c].equals(p)){
-            System.out.println("Choice1");
+            System.out.println("Legit Choice");
             board[r][c] = "";
             cR = r;
             cC = c;
@@ -252,14 +250,14 @@ public class TicTacToe extends Thread {
             return true;
         }
         else{
-            System.out.println("Choice2");
+            System.out.println("Bad Choice");
             return false;
         }
     }
 
     private boolean tryMove(int r, int c){
         if (turn <= ROWS*COLS) {
-            System.out.println("Move1");
+            System.out.println("Move - Phase 1");
             if (board[r][c].equals(opponent) || board[r][c].equals(player)) {
                 currentMessage = "Invalid move";
                 return false;
@@ -272,7 +270,7 @@ public class TicTacToe extends Thread {
             }
         }
         else {
-            System.out.println("Move2");
+            System.out.println("Move - Phase 2");
             if (board[r][c].equals(opponent)) {
                 board[r][c] = player;
                 board[cR][cC] = opponent;
