@@ -261,10 +261,12 @@ public class TicTacToe extends Thread {
         if (turn == 5 && player.equals(p1)) {
             phase2 = true;
             move2 = false;
+            System.out.print("NOW IS PHASE 2!");
         }
         else if (turn == 4 && player.equals(p2)) {
             phase2 = true;
             move2 = false;
+            System.out.print("NOW IS PHASE 2!");
         }
 
         if (phase2 && !move2) {
