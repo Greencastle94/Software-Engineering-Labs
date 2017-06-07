@@ -34,7 +34,6 @@ public class TicTacToe extends Thread {
 
     private String currentMessage = "Player X's turn";
     private int[] move = new int[2]; // Variable for saving the move
-    private int[] choice = new int[2];
 
     // Server || Client
     private String ip;
