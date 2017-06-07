@@ -1,3 +1,5 @@
+// Lucas Grönborg & Rickard Björklund
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -49,19 +51,21 @@ public class TicTacToe extends Thread {
     }
 
     private TicTacToe() {
-        //Instantiate a window for connection
+        // We could instantiate a window for connection here
         // Taking in IP and port for connection
         Scanner sc = new Scanner(System.in);
         System.out.println("Please input the IP: ");
         ip = sc.nextLine();
         System.out.println("Please input the port: ");
         port = sc.nextInt();
+
+        // Check if in valid port range
         while (port < 1 || port > 65535) {
             System.out.println("The port you entered was invalid, please input another port: ");
             port = sc.nextInt();
         }
 
-        // If it can't connect there is no server, starts one then
+        // If you can't connect there is no server, starts one then
         if (!connect()) {
             initializeServer();
             System.out.println("Waiting for another player to connect... ");
@@ -71,21 +75,24 @@ public class TicTacToe extends Thread {
             opponent = p1;
         }
 
+        // Creating the game board with empty markers
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
                 board[r][c] = "";
             }
         }
 
+        // If you are player 1 then wait for a client to connect
         if (player.equals(p1) && !accepted) {
             listenForServerRequest();
         }
 
+        // Create empty frame
         JFrame frame = new JFrame("Tic Tac Toe Online");
-
         frame.setLayout(new GridLayout(ROWS + 1, COLS));
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        // Creating the game board with buttons and attaching an ActionListener to each
         for (int r = 0; r < ROWS; r++){
             for (int c = 0; c < COLS; c++){
                 buttonBoard[r][c] = new JButton(getStatus(r, c));
@@ -102,7 +109,7 @@ public class TicTacToe extends Thread {
         mess.setText(getMessage());
         frame.add(mess);
         frame.setVisible(true);
-        frame.setSize(500, 500);
+        frame.setSize(500, 500);    // We should get better size numbers
 
         // Activate thread
         this.start();
@@ -122,7 +129,9 @@ public class TicTacToe extends Thread {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SERVER & CLIENT FUNCTIONS
+
     private void getOppMove() {
+        // Phase 1
         if (turn <= ROWS*COLS) {
             try {
                 //System.out.println("WAITING FOR DATA...");
@@ -137,14 +146,13 @@ public class TicTacToe extends Thread {
                 System.out.println(e.getMessage());
             }
         }
+        // Phase 2
         else {
             try {
                 //System.out.println("WAITING FOR DATA...");
                 int choiceNum = in.readInt();
                 int moveNum = in.readInt();
                 System.out.println("DATA WAS RECEIVED - PHASE 2");
-                System.out.println("DATA 1:" + choiceNum);
-                System.out.println("DATA 2:" + moveNum);
                 // Translating moveNum to (x,y) in board
                 int cr = (int)Math.floor(choiceNum/10);
                 int cc = choiceNum%10;
@@ -160,6 +168,7 @@ public class TicTacToe extends Thread {
     }
 
     private void sendMove() {
+        // Phase 1
         if (turn <= ROWS*COLS) {
             try {
                 // Translating move to moveNum
@@ -171,6 +180,7 @@ public class TicTacToe extends Thread {
             }
             System.out.println("DATA WAS SENT - PHASE 1");
         }
+        // Phase 2 & after choice and move
         else if (!move2) {
             try {
                 // Translating move/choice to moveNum/choiceNum
@@ -265,7 +275,8 @@ public class TicTacToe extends Thread {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
-    // OLD MODEL FUNCTIONS
+    // MODEL FUNCTIONS
+
     private String getStatus(int i, int j){
         return board[i][j];
     }
@@ -292,8 +303,8 @@ public class TicTacToe extends Thread {
     }
 
     private boolean tryChoice(int r, int c, String p){
+        // Check if chosen spot is your own
         if(board[r][c].equals(p)){
-            System.out.println("Legit Choice");
             board[r][c] = "";
             cR = r;
             cC = c;
@@ -301,14 +312,14 @@ public class TicTacToe extends Thread {
             return true;
         }
         else{
-            System.out.println("Bad Choice");
             return false;
         }
     }
 
     private boolean tryMove(int r, int c){
+        // If not Phase 2 then can set marker on empty spot
         if (turn < ROWS*COLS) {
-            System.out.println("Move - Phase 1");
+            //System.out.println("Move - Phase 1");
             if (board[r][c].equals(opponent) || board[r][c].equals(player)) {
                 currentMessage = "Invalid move";
                 return false;
@@ -319,8 +330,9 @@ public class TicTacToe extends Thread {
                 return true;
             }
         }
+        // If Phase 2 then can switch own marker with opponent
         else {
-            System.out.println("Move - Phase 2");
+            //System.out.println("Move - Phase 2");
             if (board[r][c].equals(opponent)) {
                 board[r][c] = player;
                 board[cR][cC] = opponent;
@@ -347,8 +359,9 @@ public class TicTacToe extends Thread {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    // OLD VIEW CONTROLLER FUNCTIONS
-    private void updateView(){
+    // VIEW CONTROLLER FUNCTIONS
+
+    private void updateView(){  // Old refresh()
         for (int r = 0; r < ROWS; r++){
             for (int c = 0; c < COLS; c++){
                 buttonBoard[r][c].setText(getStatus(r, c));
