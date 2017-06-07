@@ -123,7 +123,7 @@ public class TicTacToe extends Thread {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SERVER & CLIENT FUNCTIONS
     private void getOppMove() {
-        if (!phase2()) {
+        if (turn < ROWS*COLS) {
             try {
                 //System.out.println("WAITING FOR DATA...");
                 int moveNum = in.readInt();
@@ -158,7 +158,7 @@ public class TicTacToe extends Thread {
     }
 
     private void sendMove() {
-        if (!phase2()) {
+        if (turn <= ROWS*COLS) {
             try {
                 // Translating move to moveNum
                 int moveNum = (move[0]*10) + move[1];
@@ -187,8 +187,10 @@ public class TicTacToe extends Thread {
     private void opponentMove() {
         if (!yourTurn) {
             turn++;
-            getOppMove();
             System.out.println(turn);
+
+            checkPhase2();
+            getOppMove();
             switchPlayer();
             updateView();
         }
@@ -202,10 +204,12 @@ public class TicTacToe extends Thread {
                         move[0] = r;
                         move[1] = c;
                         if(move(r, c)){
+                            turn++;
                             System.out.println(turn);
+
+                            checkPhase2();
                             updateView();
                             sendMove();
-                            turn++;
                         }
                         else{
                             mess.setText(getMessage());
@@ -268,18 +272,11 @@ public class TicTacToe extends Thread {
         return currentMessage;
     }
 
-    private boolean phase2() {
+    private void checkPhase2() {
         // If turn is more than number of squares all squares have been taken.
         if (turn == ROWS*COLS) {
             move2 = false;
             System.out.println("NOW IS PHASE 2!");
-            return true;
-        }
-        else if (turn > ROWS*COLS) {
-            return true;
-        }
-        else {
-            return false;
         }
     }
 
@@ -308,7 +305,7 @@ public class TicTacToe extends Thread {
     }
 
     private boolean tryMove(int r, int c){
-        if (!phase2()) {
+        if (turn < ROWS*COLS) {
             System.out.println("Move - Phase 1");
             if (board[r][c].equals(opponent) || board[r][c].equals(player)) {
                 currentMessage = "Invalid move";
