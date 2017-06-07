@@ -26,6 +26,7 @@ public class TicTacToe extends Thread {
     private String opponent;                // What opponent you have
     private boolean yourTurn = false;       // Whose turn
     private int turn = 0;                   // What turn
+    private boolean choice = false;         // If it is the choice move
     private boolean move2 = true;           // If it is the choice move
     private boolean phase2 = false;
     private int cR;
@@ -169,7 +170,7 @@ public class TicTacToe extends Thread {
             }
             System.out.println("DATA WAS SENT - PHASE 1");
         }
-        else if (move2) {
+        else if (!move2) {
             try {
                 // Translating move/choice to moveNum/choiceNum
                 int choiceNum = (cR*10) + cC;
@@ -177,7 +178,6 @@ public class TicTacToe extends Thread {
                 out.writeInt(choiceNum);
                 out.writeInt(moveNum);
                 out.flush();
-                move2 = false;
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -317,6 +317,7 @@ public class TicTacToe extends Thread {
                 board[r][c] = player;
                 board[cR][cC] = opponent;
                 switchPlayer();
+                move2 = false;
                 return true;
             }
             else {
