@@ -167,7 +167,7 @@ public class TicTacToe extends Thread {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println("DATA WAS SENT");
+            System.out.println("DATA WAS SENT - PHASE 1");
         }
         else if (move2) {
             try {
@@ -181,7 +181,7 @@ public class TicTacToe extends Thread {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println("DATA WAS SENT");
+            System.out.println("DATA WAS SENT - PHASE 2");
         }
     }
 
