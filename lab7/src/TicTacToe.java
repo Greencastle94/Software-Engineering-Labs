@@ -276,10 +276,12 @@ public class TicTacToe extends Thread {
             System.out.println("NOW IS PHASE 2!");
         }
 
-        if (phase2 && !move2) {
+        if (move2) {
+            return tryMove(r, c);
+        }
+        else {
             return tryChoice(r, c, player);
         }
-        return tryMove(r, c);
     }
 
     private boolean tryChoice(int r, int c, String p){
