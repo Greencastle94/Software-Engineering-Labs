@@ -25,7 +25,7 @@ public class TicTacToe extends Thread {
     private String player;                  // Which player you are
     private String opponent;                // What opponent you have
     private boolean yourTurn = false;       // Whose turn
-    private int turn = 1;                   // What turn
+    private int turn = 0;                   // What turn
     private boolean move2 = true;           // If it is the choice move
     private boolean phase2 = false;
     private int cR;
@@ -124,26 +124,40 @@ public class TicTacToe extends Thread {
     // SERVER & CLIENT FUNCTIONS
     private void opponentMove() {
         if (!yourTurn) {
-            try {
-                //System.out.println("WAITING FOR DATA...");
-                int moveNum = in.readInt();
-                System.out.println("DATA WAS RECEIVED!");
-                // Translating moveNum to (x,y) in board
-                int r = (int)Math.floor(moveNum/10);
-                int c = moveNum%10;
+            if (!phase2) {
+                try {
+                    //System.out.println("WAITING FOR DATA...");
+                    int moveNum = in.readInt();
+                    System.out.println("DATA WAS RECEIVED!");
+                    // Translating moveNum to (x,y) in board
+                    int r = (int)Math.floor(moveNum/10);
+                    int c = moveNum%10;
 
-                if (player.equals(p2)) {
-                    board[r][c] = "X";
+                    board[r][c] = opponent;
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
                 }
-                else {
-                    // Translate moveNum to (x,y) in board
-                    board[r][c] = "O";
-                }
-                switchPlayer();
-                updateView();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
             }
+            else {
+                try {
+                    //System.out.println("WAITING FOR DATA...");
+                    int choiceNum = in.readInt();
+                    int moveNum = in.readInt();
+                    System.out.println("DATA WAS RECEIVED!");
+                    // Translating moveNum to (x,y) in board
+                    int cr = (int)Math.floor(moveNum/10);
+                    int cc = moveNum%10;
+                    int mr = (int)Math.floor(moveNum/10);
+                    int mc = moveNum%10;
+
+                    board[cr][cc] = player;
+                    board[mr][mc] = opponent;
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            switchPlayer();
+            updateView();
         }
     }
 
@@ -174,7 +188,7 @@ public class TicTacToe extends Thread {
                                     out.writeInt(choiceNum);
                                     out.writeInt(moveNum);
                                     out.flush();
-                                    move2 = !move2;
+                                    move2 = false;
                                 } catch (IOException e) {
                                     System.out.println(e.getMessage());
                                 }
@@ -245,9 +259,11 @@ public class TicTacToe extends Thread {
         // If turn is more than number of squares all squares have been taken.
         if (turn == 5 && player.equals(p1)) {
             phase2 = true;
+            move2 = false;
         }
         else if (turn == 4 && player.equals(p2)) {
             phase2 = true;
+            move2 = false;
         }
 
         if (phase2 && !move2) {
@@ -262,7 +278,7 @@ public class TicTacToe extends Thread {
             board[r][c] = "";
             cR = r;
             cC = c;
-            move2 = !move2;
+            move2 = true;
             return true;
         }
         else{
