@@ -268,10 +268,10 @@ public class TicTacToe extends Thread {
 
     private boolean move(int r, int c){
         // If turn is more than number of squares all squares have been taken.
-        if (turn >= ROWS*COLS) {
+        if (turn >= (ROWS*COLS)-1) {
             phase2 = true;
             move2 = false;
-            System.out.print("NOW IS PHASE 2!");
+            System.out.println("NOW IS PHASE 2!");
         }
 
         if (phase2 && !move2) {
