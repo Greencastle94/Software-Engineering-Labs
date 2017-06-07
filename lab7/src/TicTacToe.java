@@ -189,6 +189,7 @@ public class TicTacToe extends Thread {
         if (!yourTurn) {
             getOppMove();
             turn++;
+            System.out.println(turn);
             switchPlayer();
             updateView();
         }
@@ -202,6 +203,8 @@ public class TicTacToe extends Thread {
                         move[0] = r;
                         move[1] = c;
                         if(move(r, c)){
+                            turn++;
+                            System.out.println(turn);
                             updateView();
                             sendMove();
                         }
@@ -268,7 +271,7 @@ public class TicTacToe extends Thread {
 
     private boolean move(int r, int c){
         // If turn is more than number of squares all squares have been taken.
-        if (turn >= (ROWS*COLS)-1) {
+        if (turn >= ROWS*COLS) {
             phase2 = true;
             move2 = false;
             System.out.println("NOW IS PHASE 2!");
@@ -304,7 +307,6 @@ public class TicTacToe extends Thread {
             }
             else {
                 board[r][c] = player;
-                turn++;
                 switchPlayer();
                 return true;
             }
@@ -314,7 +316,6 @@ public class TicTacToe extends Thread {
             if (board[r][c].equals(opponent)) {
                 board[r][c] = player;
                 board[cR][cC] = opponent;
-                turn++;
                 switchPlayer();
                 return true;
             }
