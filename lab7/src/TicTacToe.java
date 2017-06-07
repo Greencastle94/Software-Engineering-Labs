@@ -186,8 +186,8 @@ public class TicTacToe extends Thread {
 
     private void opponentMove() {
         if (!yourTurn) {
-            getOppMove();
             turn++;
+            getOppMove();
             System.out.println(turn);
             switchPlayer();
             updateView();
