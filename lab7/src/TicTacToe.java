@@ -202,10 +202,10 @@ public class TicTacToe extends Thread {
                         move[0] = r;
                         move[1] = c;
                         if(move(r, c)){
-                            turn++;
                             System.out.println(turn);
                             updateView();
                             sendMove();
+                            turn++;
                         }
                         else{
                             mess.setText(getMessage());
