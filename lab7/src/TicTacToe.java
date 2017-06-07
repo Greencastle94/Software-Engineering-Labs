@@ -143,6 +143,8 @@ public class TicTacToe extends Thread {
                 int choiceNum = in.readInt();
                 int moveNum = in.readInt();
                 System.out.println("DATA WAS RECEIVED - PHASE 2");
+                System.out.println("DATA 1:" + choiceNum);
+                System.out.println("DATA 2:" + moveNum);
                 // Translating moveNum to (x,y) in board
                 int cr = (int)Math.floor(moveNum/10);
                 int cc = moveNum%10;
