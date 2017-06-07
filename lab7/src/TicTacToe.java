@@ -122,40 +122,72 @@ public class TicTacToe extends Thread {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SERVER & CLIENT FUNCTIONS
+    private void getOppMove() {
+        if (!phase2) {
+            try {
+                //System.out.println("WAITING FOR DATA...");
+                int moveNum = in.readInt();
+                System.out.println("DATA WAS RECEIVED!");
+                // Translating moveNum to (x,y) in board
+                int r = (int)Math.floor(moveNum/10);
+                int c = moveNum%10;
+
+                board[r][c] = opponent;
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else {
+            try {
+                //System.out.println("WAITING FOR DATA...");
+                int choiceNum = in.readInt();
+                int moveNum = in.readInt();
+                System.out.println("DATA WAS RECEIVED!");
+                // Translating moveNum to (x,y) in board
+                int cr = (int)Math.floor(moveNum/10);
+                int cc = moveNum%10;
+                int mr = (int)Math.floor(moveNum/10);
+                int mc = moveNum%10;
+
+                board[cr][cc] = player;
+                board[mr][mc] = opponent;
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void sendMove() {
+        if (!phase2) {
+            try {
+                // Translating move to moveNum
+                int moveNum = (move[0]*10) + move[1];
+                out.writeInt(moveNum);
+                out.flush();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("DATA WAS SENT");
+        }
+        else if (move2) {
+            try {
+                // Translating move/choice to moveNum/choiceNum
+                int choiceNum = (cR*10) + cC;
+                int moveNum = (move[0]*10) + move[1];
+                out.writeInt(choiceNum);
+                out.writeInt(moveNum);
+                out.flush();
+                move2 = false;
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("DATA WAS SENT");
+        }
+    }
+
     private void opponentMove() {
         if (!yourTurn) {
-            if (!phase2) {
-                try {
-                    //System.out.println("WAITING FOR DATA...");
-                    int moveNum = in.readInt();
-                    System.out.println("DATA WAS RECEIVED!");
-                    // Translating moveNum to (x,y) in board
-                    int r = (int)Math.floor(moveNum/10);
-                    int c = moveNum%10;
-
-                    board[r][c] = opponent;
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            else {
-                try {
-                    //System.out.println("WAITING FOR DATA...");
-                    int choiceNum = in.readInt();
-                    int moveNum = in.readInt();
-                    System.out.println("DATA WAS RECEIVED!");
-                    // Translating moveNum to (x,y) in board
-                    int cr = (int)Math.floor(moveNum/10);
-                    int cc = moveNum%10;
-                    int mr = (int)Math.floor(moveNum/10);
-                    int mc = moveNum%10;
-
-                    board[cr][cc] = player;
-                    board[mr][mc] = opponent;
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+            getOppMove();
             switchPlayer();
             updateView();
         }
@@ -170,32 +202,9 @@ public class TicTacToe extends Thread {
                         move[1] = c;
                         if(move(r, c)){
                             updateView();
-                            if (!phase2) {
-                                try {
-                                    // Translating move to moveNum
-                                    int moveNum = (move[0]*10) + move[1];
-                                    out.writeInt(moveNum);
-                                    out.flush();
-                                } catch (IOException e) {
-                                    System.out.println(e.getMessage());
-                                }
-                                System.out.println("DATA WAS SENT");
-                            }
-                            else if (move2) {
-                                try {
-                                    // Translating move/choice to moveNum/choiceNum
-                                    int choiceNum = (cR*10) + cC;
-                                    int moveNum = (move[0]*10) + move[1];
-                                    out.writeInt(choiceNum);
-                                    out.writeInt(moveNum);
-                                    out.flush();
-                                    move2 = false;
-                                } catch (IOException e) {
-                                    System.out.println(e.getMessage());
-                                }
-                                System.out.println("DATA WAS SENT");
-                            }
-                        }else{
+                            sendMove();
+                        }
+                        else{
                             mess.setText(getMessage());
                         }
                     }
