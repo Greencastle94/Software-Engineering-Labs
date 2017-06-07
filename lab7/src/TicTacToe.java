@@ -123,7 +123,7 @@ public class TicTacToe extends Thread {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SERVER & CLIENT FUNCTIONS
     private void getOppMove() {
-        if (turn < ROWS*COLS) {
+        if (turn <= ROWS*COLS) {
             try {
                 //System.out.println("WAITING FOR DATA...");
                 int moveNum = in.readInt();
