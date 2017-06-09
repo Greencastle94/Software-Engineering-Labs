@@ -304,6 +304,7 @@ public class TicTacToe extends Thread {
                 return true;
             }
         }
+        return false;
     }
 
     private String winOrLoseMessage(String marker) {
