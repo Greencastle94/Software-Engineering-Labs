@@ -29,7 +29,7 @@ public class TicTacToe extends Thread {
     private boolean yourTurn = false;       // Whose turn
     private int turn = 0;                   // What turn
     private boolean move2 = true;           // If it is the choice move
-    private int turnsUntilPhase2 = 7;
+    private int turnsUntilPhase2 = 6;
     private int cR;
     private int cC;
 
@@ -321,7 +321,7 @@ public class TicTacToe extends Thread {
 
     private void checkPhase2() {
         // If turn is more than number of squares all squares have been taken.
-        if (turn == turnsUntilPhase2) {
+        if (turn == turnsUntilPhase2+1) {
             move2 = false;
             System.out.println("NOW IS PHASE 2!");
         }
