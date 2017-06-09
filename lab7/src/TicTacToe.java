@@ -202,6 +202,7 @@ public class TicTacToe extends Thread {
 
             checkPhase2();
             getOppMove();
+            checkWinOrLose(opponent);
             switchPlayer();
             updateView();
         }
@@ -218,6 +219,7 @@ public class TicTacToe extends Thread {
                             turn++;
                             System.out.println(turn);
 
+                            checkWinOrLose(player);
                             checkPhase2();
                             updateView();
                             sendMove();
@@ -276,6 +278,39 @@ public class TicTacToe extends Thread {
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     // MODEL FUNCTIONS
 
+    private void checkWinOrLose(String marker) {
+        if (board[0][0].equals(marker) && board[1][1].equals(marker) && board[2][2].equals(marker)) {
+            currentMessage = WinOrLoseMessage(marker);
+            return;
+        }
+        else if (board[0][2].equals(marker) && board[1][1].equals(marker) && board[2][0].equals(marker)) {
+            currentMessage = WinOrLoseMessage(marker);
+            return;
+        }
+        for (int i = 0; i < COLS; i++) {
+            // Checking all columns
+            if (board[i][0].equals(marker) && board[i][1].equals(marker) && board[i][2].equals(marker)) {
+                // Checking all rows
+                currentMessage = WinOrLoseMessage(marker);
+                return;
+            }
+            else if (board[0][i].equals(marker) && board[1][i].equals(marker) && board[2][i].equals(marker)) {
+                // Checking the diagonals
+                currentMessage = WinOrLoseMessage(marker);
+                return;
+            }
+        }
+    }
+
+    private String WinOrLoseMessage(String marker) {
+        if(marker.equals(player)) {
+            return "You won!";
+        }
+        else {
+            return "You lost!";
+        }
+    }
+
     private String getStatus(int i, int j){
         return board[i][j];
     }
@@ -308,6 +343,8 @@ public class TicTacToe extends Thread {
             cR = r;
             cC = c;
             move2 = true;
+
+            currentMessage = "Choose an empty spot";
             return true;
         }
         else{
@@ -332,9 +369,9 @@ public class TicTacToe extends Thread {
         // If Phase 2 then can switch own marker with opponent
         else {
             //System.out.println("Move - Phase 2");
-            if (board[r][c].equals(opponent)) {
+            if (board[r][c].equals("")) {
                 board[r][c] = player;
-                board[cR][cC] = opponent;
+                //board[cR][cC] = opponent;
                 switchPlayer();
                 move2 = false;
                 return true;
