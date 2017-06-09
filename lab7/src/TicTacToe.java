@@ -28,9 +28,8 @@ public class TicTacToe extends Thread {
     private String opponent;                // What opponent you have
     private boolean yourTurn = false;       // Whose turn
     private int turn = 0;                   // What turn
-    private boolean choice = false;         // If it is the choice move
     private boolean move2 = true;           // If it is the choice move
-    private boolean phase2 = false;
+    private int turnsUntilPhase2 = 6;
     private int cR;
     private int cC;
 
@@ -132,7 +131,7 @@ public class TicTacToe extends Thread {
 
     private void getOppMove() {
         // Phase 1
-        if (turn <= ROWS*COLS) {
+        if (turn <= turnsUntilPhase2) {
             try {
                 //System.out.println("WAITING FOR DATA...");
                 int moveNum = in.readInt();
@@ -169,7 +168,7 @@ public class TicTacToe extends Thread {
 
     private void sendMove() {
         // Phase 1
-        if (turn <= ROWS*COLS) {
+        if (turn <= turnsUntilPhase2) {
             try {
                 // Translating move to moveNum
                 int moveNum = (move[0]*10) + move[1];
@@ -287,7 +286,7 @@ public class TicTacToe extends Thread {
 
     private void checkPhase2() {
         // If turn is more than number of squares all squares have been taken.
-        if (turn == ROWS*COLS) {
+        if (turn == turnsUntilPhase2) {
             move2 = false;
             System.out.println("NOW IS PHASE 2!");
         }
@@ -318,7 +317,7 @@ public class TicTacToe extends Thread {
 
     private boolean tryMove(int r, int c){
         // If not Phase 2 then can set marker on empty spot
-        if (turn < ROWS*COLS) {
+        if (turn < turnsUntilPhase2) {
             //System.out.println("Move - Phase 1");
             if (board[r][c].equals(opponent) || board[r][c].equals(player)) {
                 currentMessage = "Invalid move";
