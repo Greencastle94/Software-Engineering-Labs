@@ -158,7 +158,7 @@ public class TicTacToe extends Thread {
                 int mr = (int)Math.floor(moveNum/10);
                 int mc = moveNum%10;
 
-                board[cr][cc] = player;
+                board[cr][cc] = "";
                 board[mr][mc] = opponent;
             } catch (IOException e) {
                 System.out.println(e.getMessage());
