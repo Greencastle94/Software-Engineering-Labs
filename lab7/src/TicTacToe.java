@@ -354,7 +354,7 @@ public class TicTacToe extends Thread {
 
     private boolean tryMove(int r, int c){
         // If not Phase 2 then can set marker on empty spot
-        if (turn < turnsUntilPhase2) {
+        if (turn <= turnsUntilPhase2) {
             //System.out.println("Move - Phase 1");
             if (board[r][c].equals(opponent) || board[r][c].equals(player)) {
                 currentMessage = "Invalid move";
