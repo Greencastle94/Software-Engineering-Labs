@@ -202,7 +202,9 @@ public class TicTacToe extends Thread {
 
             checkPhase2();
             getOppMove();
-            checkWinOrLose(opponent);
+            if(winOrLose(opponent)) {
+                return;
+            }
             switchPlayer();
             updateView();
         }
@@ -219,7 +221,9 @@ public class TicTacToe extends Thread {
                             turn++;
                             System.out.println(turn);
 
-                            checkWinOrLose(player);
+                            if(winOrLose(player)) {
+                                return;
+                            }
                             checkPhase2();
                             updateView();
                             sendMove();
@@ -278,31 +282,31 @@ public class TicTacToe extends Thread {
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     // MODEL FUNCTIONS
 
-    private void checkWinOrLose(String marker) {
+    private boolean winOrLose(String marker) {
         if (board[0][0].equals(marker) && board[1][1].equals(marker) && board[2][2].equals(marker)) {
-            currentMessage = WinOrLoseMessage(marker);
-            return;
+            currentMessage = winOrLoseMessage(marker);
+            return true;
         }
         else if (board[0][2].equals(marker) && board[1][1].equals(marker) && board[2][0].equals(marker)) {
-            currentMessage = WinOrLoseMessage(marker);
-            return;
+            currentMessage = winOrLoseMessage(marker);
+            return true;
         }
         for (int i = 0; i < COLS; i++) {
             // Checking all columns
             if (board[i][0].equals(marker) && board[i][1].equals(marker) && board[i][2].equals(marker)) {
                 // Checking all rows
-                currentMessage = WinOrLoseMessage(marker);
-                return;
+                currentMessage = winOrLoseMessage(marker);
+                return true;
             }
             else if (board[0][i].equals(marker) && board[1][i].equals(marker) && board[2][i].equals(marker)) {
                 // Checking the diagonals
-                currentMessage = WinOrLoseMessage(marker);
-                return;
+                currentMessage = winOrLoseMessage(marker);
+                return true;
             }
         }
     }
 
-    private String WinOrLoseMessage(String marker) {
+    private String winOrLoseMessage(String marker) {
         if(marker.equals(player)) {
             return "You won!";
         }
