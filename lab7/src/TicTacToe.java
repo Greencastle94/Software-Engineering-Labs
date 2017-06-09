@@ -321,7 +321,7 @@ public class TicTacToe extends Thread {
 
     private void checkPhase2() {
         // If turn is more than number of squares all squares have been taken.
-        if (turn == turnsUntilPhase2+1) {
+        if (turn == turnsUntilPhase2) {
             move2 = false;
             System.out.println("NOW IS PHASE 2!");
         }
