@@ -202,10 +202,8 @@ public class TicTacToe extends Thread {
 
             checkPhase2();
             getOppMove();
-            if(winOrLose(opponent)) {
-                return;
-            }
-            switchPlayer();
+            if(!winOrLose(opponent))
+                switchPlayer();
             updateView();
         }
     }
