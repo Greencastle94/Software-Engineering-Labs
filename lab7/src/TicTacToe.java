@@ -221,9 +221,7 @@ public class TicTacToe extends Thread {
                             turn++;
                             System.out.println(turn);
 
-                            if(winOrLose(player)) {
-                                return;
-                            }
+                            winOrLose(player);
                             checkPhase2();
                             updateView();
                             sendMove();
