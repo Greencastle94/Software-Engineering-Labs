@@ -1,1 +1,1 @@
-Alla labbar i kursen Programutvecklingstekniken
+All labs from the course Software Engineering
